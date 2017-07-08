@@ -38,31 +38,17 @@ def vis_detections(im, class_name, dets, thresh=0.5):
     if len(inds) == 0:
         return
 
-    im = im[:, :, (2, 1, 0)]
-    fig, ax = plt.subplots(figsize=(12, 12))
-    ax.imshow(im, aspect='equal')
     for i in inds:
         bbox = dets[i, :4]
         score = dets[i, -1]
 
-        ax.add_patch(
-            plt.Rectangle((bbox[0], bbox[1]),
-                          bbox[2] - bbox[0],
-                          bbox[3] - bbox[1], fill=False,
-                          edgecolor='red', linewidth=3.5)
-            )
-        ax.text(bbox[0], bbox[1] - 2,
-                '{:s} {:.3f}'.format(class_name, score),
-                bbox=dict(facecolor='blue', alpha=0.5),
-                fontsize=14, color='white')
 
-    ax.set_title(('{} detections with '
-                  'p({} | box) >= {:.1f}').format(class_name, class_name,
-                                                  thresh),
-                  fontsize=14)
-    plt.axis('off')
-    plt.tight_layout()
-    plt.draw()
+        cv2.rectangle(im,(bbox[0], bbox[1]),(bbox[2], bbox[3]),(255,0,0),3)
+
+        cv2.putText(im, str(score), (bbox[0], bbox[1]), cv2.FONT_HERSHEY_SIMPLEX,  .6, (0, 255, 0), 1, 2)
+        cv2.imshow("Image", im)
+        cv2.waitKey(0)
+
 
 def demo_show(net, im):
     """Detect object classes in an image using pre-computed object proposals."""
@@ -88,6 +74,8 @@ def demo_show(net, im):
                           cls_scores[:, np.newaxis])).astype(np.float32)
     keep = nms(dets, NMS_THRESH)
     dets = dets[keep, :]
+    cv2.imshow("Image", im)
+    cv2.waitKey (0)
     vis_detections(im, cls, dets, thresh=CONF_THRESH)
     thresh=CONF_THRESH
     inds = np.where(dets[:, -1] >= thresh)[0]
