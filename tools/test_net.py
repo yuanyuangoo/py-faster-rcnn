@@ -16,7 +16,10 @@ from datasets.factory import get_imdb
 import caffe
 import argparse
 import pprint
-import time, os, sys
+import time
+import os
+import sys
+
 
 def parse_args():
     """
@@ -56,6 +59,7 @@ def parse_args():
 
     args = parser.parse_args()
     return args
+
 
 if __name__ == '__main__':
     args = parse_args()

@@ -20,6 +20,7 @@ import pprint
 import numpy as np
 import sys
 
+
 def parse_args():
     """
     Parse input arguments
@@ -57,6 +58,7 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+
 def combined_roidb(imdb_names):
     def get_roidb(imdb_name):
         imdb = get_imdb(imdb_name)
@@ -75,6 +77,7 @@ def combined_roidb(imdb_names):
     else:
         imdb = get_imdb(imdb_names)
     return imdb, roidb
+
 
 if __name__ == '__main__':
     args = parse_args()

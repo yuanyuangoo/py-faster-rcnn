@@ -14,8 +14,11 @@ from fast_rcnn.test import apply_nms
 from fast_rcnn.config import cfg
 from datasets.factory import get_imdb
 import cPickle
-import os, sys, argparse
+import os
+import sys
+import argparse
 import numpy as np
+
 
 def parse_args():
     """
@@ -42,6 +45,7 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+
 def from_dets(imdb_name, output_dir, args):
     imdb = get_imdb(imdb_name)
     imdb.competition_mode(args.comp_mode)
@@ -57,6 +61,7 @@ def from_dets(imdb_name, output_dir, args):
 
     print 'Evaluating detections'
     imdb.evaluate_detections(nms_dets, output_dir)
+
 
 if __name__ == '__main__':
     args = parse_args()
